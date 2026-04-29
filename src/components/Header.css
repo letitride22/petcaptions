@@ -1,0 +1,28 @@
+.header {
+  padding: 16px 20px 12px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--cream-mid);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paw-icon {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(90,50,24,0.15));
+}
+
+.wordmark-text {
+  font-family: var(--font);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--brown);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}

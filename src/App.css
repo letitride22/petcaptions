@@ -1,0 +1,18 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--cream);
+  position: relative;
+  box-shadow: 0 0 40px rgba(90, 50, 24, 0.12);
+}
+
+.page-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
+  -webkit-overflow-scrolling: touch;
+}

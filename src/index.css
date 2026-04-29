@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --brown: #5A3218;
+  --brown-dark: #3D2010;
+  --brown-mid: #7A4A28;
+  --brown-light: #A06840;
+  --cream: #FFF8F3;
+  --cream-dark: #F5EDE3;
+  --cream-mid: #EDD9C5;
+  --orange: #E8722A;
+  --orange-light: #F5A06A;
+  --gold: #D4923A;
+  --text: #2A1508;
+  --text-muted: #7A5540;
+  --white: #FFFFFF;
+
+  --nav-height: 72px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --font: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--cream);
+  color: var(--text);
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--cream-mid); border-radius: 2px; }
+
+/* Utility */
+.btn {
+  font-family: var(--font);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.18s ease;
+  border-radius: 100px;
+  letter-spacing: 0.01em;
+}
+
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  background: var(--brown);
+  color: var(--cream);
+  padding: 14px 28px;
+  font-size: 15px;
+}
+
+.btn-primary:hover { background: var(--brown-dark); }
+
+.btn-secondary {
+  background: var(--cream-dark);
+  color: var(--brown);
+  padding: 12px 24px;
+  font-size: 14px;
+}
+
+.btn-orange {
+  background: var(--orange);
+  color: white;
+  padding: 14px 28px;
+  font-size: 15px;
+}
+
+.btn-orange:hover { background: #d4641e; }
+
+/* Vibe pill */
+.vibe-pill {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 100px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.vibe-pill.active {
+  background: var(--brown);
+  color: var(--cream);
+  border-color: var(--brown);
+}
+
+.vibe-pill:not(.active) {
+  background: transparent;
+  color: var(--brown);
+  border-color: var(--cream-mid);
+}
+
+.vibe-pill:not(.active):hover {
+  border-color: var(--brown-light);
+  background: var(--cream-dark);
+}
+
+/* Loading shimmer */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, var(--cream-dark) 25%, var(--cream-mid) 50%, var(--cream-dark) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* Fade in */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.4s ease forwards;
+}
+
+/* Bounce dot */
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}

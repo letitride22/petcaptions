@@ -1,0 +1,112 @@
+.trending-page {
+  min-height: 100%;
+}
+
+.trending-content {
+  padding: 20px;
+}
+
+.trending-header {
+  margin-bottom: 20px;
+}
+
+.trending-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--brown);
+  letter-spacing: -0.02em;
+}
+
+.trending-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.trending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trending-card {
+  display: flex;
+  gap: 14px;
+  background: var(--cream-dark);
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid var(--cream-mid);
+  align-items: flex-start;
+}
+
+.trending-pet-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.trending-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.trending-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.trending-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.trending-vibe-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--brown-light);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.trending-likes {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.trending-caption {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.trending-pet-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.trending-cta {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--brown);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.trending-cta-text {
+  color: var(--cream);
+  font-size: 15px;
+  font-weight: 700;
+}
