@@ -7,27 +7,27 @@ const VIBES = {
   dramatic: {
     label: 'Dramatic',
     emoji: '🎭',
-    prompt: `You are writing a DRAMATICALLY OVERDRAMATIC caption for a pet photo. Everything is a catastrophe. A minor inconvenience is a Shakespearean tragedy. A nap is "a long journey into the void." Lean into theatrical, operatic, soap-opera energy. 1-2 sentences, maximum drama.`
+    prompt: `You are writing a DRAMATICALLY OVERDRAMATIC caption for a pet photo. Everything is a catastrophe. A minor inconvenience is a Shakespearean tragedy. Lean into theatrical, operatic, soap-opera energy. 1-2 sentences, maximum drama.`
   },
   judgy: {
     label: 'Judgy',
     emoji: '🧐',
-    prompt: `You are writing a JUDGY caption from the pet's perspective. The pet is silently judging everything — the human, the decor, the lighting, the life choices. Think raised eyebrow, silent disappointment, withering assessment. Short, cutting, devastating. 1-2 sentences.`
+    prompt: `You are writing a JUDGY caption from the pet's perspective. The pet is silently judging everything. Think raised eyebrow, silent disappointment, withering assessment. Short, cutting, devastating. 1-2 sentences.`
   },
   unhinged: {
     label: 'Unhinged',
     emoji: '🤪',
-    prompt: `You are writing an UNHINGED caption for a pet photo. The pet has completely chaotic, unhinged energy. Nonsense stream of consciousness, conspiracy theories about squirrels, sudden topic changes, manic enthusiasm. Random capitalization for emphasis is encouraged. 2-3 sentences of pure chaos.`
+    prompt: `You are writing an UNHINGED caption for a pet photo. Pure chaos. Nonsense stream of consciousness, conspiracy theories about squirrels, sudden topic changes, manic enthusiasm. 2-3 sentences of pure chaos.`
   },
   sweet: {
     label: 'Sweet',
     emoji: '🥰',
-    prompt: `You are writing a genuinely SWEET, heartwarming caption for a pet photo. Pure serotonin. The kind of caption that makes people go "awww." Wholesome, loving, soft. Maybe from the pet's perspective or an observer. 1-2 warm, cozy sentences.`
+    prompt: `You are writing a genuinely SWEET, heartwarming caption for a pet photo. Pure serotonin. Wholesome, loving, soft. 1-2 warm, cozy sentences.`
   },
   suspicious: {
     label: 'Suspicious',
     emoji: '👀',
-    prompt: `You are writing a SUSPICIOUS caption where the pet is clearly up to something or deeply suspicious of the human. The pet has a scheme. There's a conspiracy. They know something. Or they're being accused of something they definitely did. 1-2 sentences of barely-concealed guilt or paranoia.`
+    prompt: `You are writing a SUSPICIOUS caption where the pet is clearly up to something. The pet has a scheme. 1-2 sentences of barely-concealed guilt or paranoia.`
   }
 }
 
@@ -52,14 +52,14 @@ export async function generateCaption(imageBase64, vibeId) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': 'x-api-key': 'REPLACE_WITH_YOUR_KEY',
+      'x-api-key': 'REPLACE_WITH_YOUR_KEY',
       'anthropic-version': '2023-06-01',
       'anthropic-dangerous-direct-browser-access': 'true'
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-5',
-      max_tokens: 200,
-      system: `${vibe.prompt}\n\nLook at the pet photo and write the caption. 'Output ONLY the caption — maximum 12 words, one punchy sentence. No quotes, no labels, no preamble.22`,
+      max_tokens: 100,
+      system: vibe.prompt + '\n\nOutput ONLY the caption — maximum 12 words, one punchy sentence. No quotes, no labels, no preamble.',
       messages: [
         {
           role: 'user',
@@ -74,7 +74,7 @@ export async function generateCaption(imageBase64, vibeId) {
             },
             {
               type: 'text',
-              text: `Write a caption for this pet photo.`
+              text: 'Write a caption for this pet photo.'
             }
           ]
         }
@@ -84,7 +84,7 @@ export async function generateCaption(imageBase64, vibeId) {
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}))
-    throw new Error(err?.error?.message || `API error ${response.status}`)
+    throw new Error(err?.error?.message || 'API error ' + response.status)
   }
 
   const data = await response.json()
@@ -103,12 +103,11 @@ export async function composeImage(imageDataUrl, caption, vibeId) {
       const canvas = document.createElement('canvas')
       const WIDTH = 1080
       const PHOTO_H = 1080
-      const BOX_H = 320
+      const BOX_H = 300
       canvas.width = WIDTH
       canvas.height = PHOTO_H + BOX_H
       const ctx = canvas.getContext('2d')
 
-      // Draw photo (cover crop square)
       const scale = Math.max(WIDTH / img.width, PHOTO_H / img.height)
       const sw = WIDTH / scale
       const sh = PHOTO_H / scale
@@ -116,18 +115,15 @@ export async function composeImage(imageDataUrl, caption, vibeId) {
       const sy = (img.height - sh) / 2
       ctx.drawImage(img, sx, sy, sw, sh, 0, 0, WIDTH, PHOTO_H)
 
-      // White caption box
       ctx.fillStyle = '#FFF8F3'
       ctx.fillRect(0, PHOTO_H, WIDTH, BOX_H)
 
-      // Vibe badge
       ctx.font = 'bold 28px Outfit, sans-serif'
       ctx.fillStyle = '#A06840'
       ctx.textAlign = 'center'
-      ctx.fillText(`${vibe.emoji} ${vibe.label.toUpperCase()}`, WIDTH / 2, PHOTO_H + 60)
+      ctx.fillText(vibe.emoji + ' ' + vibe.label.toUpperCase(), WIDTH / 2, PHOTO_H + 60)
 
-      // Caption text
-      ctx.font = 'bold 48px Outfit, sans-serif'
+      ctx.font = 'bold 46px Outfit, sans-serif'
       ctx.fillStyle = '#3D2010'
       ctx.textAlign = 'center'
       ctx.shadowColor = 'transparent'
@@ -138,7 +134,7 @@ export async function composeImage(imageDataUrl, caption, vibeId) {
       const lines = []
       let current = ''
       for (const word of words) {
-        const test = current ? `${current} ${word}` : word
+        const test = current ? current + ' ' + word : word
         if (ctx.measureText(test).width > maxW && current) {
           lines.push(current)
           current = word
@@ -148,19 +144,18 @@ export async function composeImage(imageDataUrl, caption, vibeId) {
       }
       if (current) lines.push(current)
 
-      const lineH = 58
+      const lineH = 56
       const totalH = lines.length * lineH
-      const startY = PHOTO_H + 110 + (BOX_H - 110 - totalH) / 2
+      const startY = PHOTO_H + 100 + (BOX_H - 100 - totalH) / 2
 
       lines.forEach((line, i) => {
         ctx.fillText(line, WIDTH / 2, startY + i * lineH)
       })
 
-      // Watermark
-      ctx.font = '500 24px Outfit, sans-serif'
+      ctx.font = '500 22px Outfit, sans-serif'
       ctx.fillStyle = '#A06840'
       ctx.textAlign = 'center'
-      ctx.fillText('🐾 petcaptions.com', WIDTH / 2, PHOTO_H + BOX_H - 30)
+      ctx.fillText('🐾 petcaptions.com', WIDTH / 2, PHOTO_H + BOX_H - 28)
 
       resolve(canvas.toDataURL('image/jpeg', 0.92))
     }
