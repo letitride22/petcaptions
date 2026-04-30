@@ -196,9 +196,12 @@
 .vibes-scroll {
   display: flex;
   gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
+  overflow-x: scroll;
+  padding-bottom: 8px;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  width: 100%;
 }
 
 .vibes-scroll::-webkit-scrollbar { display: none; }
