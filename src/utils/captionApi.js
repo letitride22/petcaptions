@@ -52,7 +52,7 @@ export async function generateCaption(imageBase64, vibeId) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': 'REPLACE_WITH_YOUR_KEY',
+      'x-api-key': import.meta.env.VITE_ANTHROPIC_KEY,
       'anthropic-version': '2023-06-01',
       'anthropic-dangerous-direct-browser-access': 'true'
     },
