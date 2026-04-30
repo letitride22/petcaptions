@@ -8,6 +8,7 @@
   background: var(--cream);
   position: relative;
   box-shadow: 0 0 40px rgba(90, 50, 24, 0.12);
+max-width: 100vw;
 }
 
 .page-container {

@@ -37,6 +37,8 @@ body {
   background: var(--cream);
   color: var(--text);
   overflow: hidden;
+  overflow-x: hidden;
+max-width: 100vw;
 }
 
 #root {
