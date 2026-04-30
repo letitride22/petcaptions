@@ -103,7 +103,6 @@ export default function CaptionPage({ onSave }) {
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              capture="environment"
               onChange={handleFileInput}
               style={{ display: 'none' }}
             />
